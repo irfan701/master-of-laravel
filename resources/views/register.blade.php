@@ -14,7 +14,7 @@
 <div class="container mt-5">
 
     <div class="row">
-        <div class="col-md-4 offset-md-3">
+        <div class="col-md-4 offset-md-4">
 
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -34,7 +34,7 @@
 
 
     <div class="row">
-        <div class="col-md-4 col-lg-4 card bg-info text-white offset-md-3 p-3">
+        <div class="col-md-4 col-lg-4 card bg-warning text-white offset-md-4 p-3">
             <form action="{{url('/store')}}" method="POST">@csrf
                 <div class="mb-3">
                     <label for="" class="form-label">User Name</label>
@@ -47,9 +47,11 @@
 
                 <div class="mb-3">
                     <input type="submit" value="submit" class="btn btn-success">
+
                 </div>
             </form>
 
+            <a href="{{url('/send-otp')}}" class="btn btn-danger">OTP</a>
         </div>
     </div>
 </div>
