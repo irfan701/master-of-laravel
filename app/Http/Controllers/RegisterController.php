@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMailJob;
 use App\Mail\RegistrationMail;
 use App\Mail\UserReportMail;
 use Illuminate\Http\Request;
@@ -23,12 +24,20 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users|max:255',
         ]);
         DB::table('users')->insert($request->except('_token'));
-        //send mail
+        //send mail Jobs
 
-        Mail::to($request->email)->send(new RegistrationMail($request));
-        //Mail::to('admin@mihdubai.com')->send(new UserReportMail());
-
-
+        dispatch(new SendMailJob((object)$request->all()));
         return redirect()->back()->with('success','Registration Successful!');
     }
 }
+
+/*
+ *      QUEUE STEPS
+ *  php artisan queue:table
+ *  php artisan make:job SendMailJob
+ *  dispatch(new SendMailJob());
+ *  QUEUE_CONNECTION=database
+ *  php artisan queue:work
+ *
+ */
+
